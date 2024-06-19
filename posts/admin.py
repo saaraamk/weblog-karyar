@@ -1,7 +1,12 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Comment
+
+class CommentAdminInLine(admin.TabularInline):
+    model = Comment
+    feilds = ["text", "created_at"]
 
 class PostAdmin(admin.ModelAdmin):
-    list_display =["title", "created_at"]
+    list_display =["id","title", "created_at"]
+    inlines = [CommentAdminInLine]
 
-admin.site.register(Post)
+admin.site.register(Post,PostAdmin)
